@@ -25,7 +25,7 @@ module.exports = function(grunt){
 //          baseUrl: "path/to/base",
           name: "node_modules/almond/almond.js",
           include: ["ls!src/languages"],
-          out: "build/buggy.js",
+          out: "build/languages.js",
           paths: {
             'text': "lib/text",
             'json': "lib/json",
@@ -35,6 +35,8 @@ module.exports = function(grunt){
             'LiveScript': "lib/livescript",
             'handlebars': "lib/handlebars",
             'ls': "lib/ls",
+            "Buggy": "node_modules/Buggy/build/buggy",
+            "clone": "lib/clone",
             'prelude': "lib/prelude-browser",
           },
           wrap: {
@@ -58,22 +60,11 @@ module.exports = function(grunt){
           generateSourceMaps: true
         }
       }
-    },
-    shell: {
-      semantics: {
-        command: function(){
-          var sources = ["semantics/base.json",
-                         "semantics/javascript/js.json"];
-          var src = "-s " + sources.join(" -s ");
-          console.log("src/buggy/buggy2anything.ls -l javascript -n " + src + " > build/semantics.js");
-          return "src/buggy/buggy2anything.ls -l javascript -n " + src + " > build/semantics.js";
-        }
-      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
-  grunt.registerTask("pack", ["requirejs", "shell:semantics"]);
+  grunt.registerTask("pack", ["requirejs"]);
 
 }

@@ -23,7 +23,7 @@ define ->
       if from != "dataflow" and to != "dataflow"
         # there must always be a way to transform to the dataflow Description
         # with that we can transpile from everywhere to everywhere
-        flow = Transpile.create from, "dataflow", langs
+        flow = Transpiler.create from, "dataflow", langs
         source = Transpiler.create "dataflow", to, langs
         return Transpiler.compose source, flow
       functionSelect = "generate";
@@ -31,7 +31,7 @@ define ->
       if to == "dataflow"
         functionSelect = "parse"
         lang = from
-      transpilerLang = _.first(_.filter(languages, function(l){ return l.name == lang; }));
+      transpilerLang = head filter (-> it.name == lang), langs
       transpiler = transpilerLang[functionSelect];
       transpiler.from = from
       transpiler.to = to
